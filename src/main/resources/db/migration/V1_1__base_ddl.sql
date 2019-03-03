@@ -18,11 +18,10 @@ create table public.performed_action (
 );
 
 
-
-insert into table public.action(name, rating) values ("Smoke", -20);
-insert into table public.action(name, rating) values ("Run", 10);
-insert into table public.action(name, rating) values ("Swim", 20);
-insert into table public.action(name, rating) values ("Read", 10);
-insert into table public.action(name, rating) values ("Drive Car", -10);
-insert into table public.action(name, rating) values ("Walk", 10);
-insert into table public.action(name, rating) values ("Drink Alcohol", -10);
+insert into public.action(name, rating) values ('Smoke', -20);
+insert into public.action(name, rating) values ('Run', 10);
+insert into public.action(name, rating) values ('Swim', 20);
+insert into public.action(name, rating) values ('Read', 10);
+insert into public.action(name, rating) values ('Drive Car', -10);
+insert into public.action(name, rating) values ('Walk', 10);
+insert into public.action(name, rating) values ('Drink Alcohol', -10);

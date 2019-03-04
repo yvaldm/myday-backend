@@ -16,7 +16,7 @@ public class Transformer {
     }
 
     public static ActionResponse actionToResponse(Action action) {
-        return new ActionResponse(action.getName(), action.getRating());
+        return new ActionResponse(action.getId(), action.getName(), action.getRating());
     }
 
     public static List<ActionPerformedResponse> performedActionsToResponse(List<ActionPerformed> actionPerformed) {

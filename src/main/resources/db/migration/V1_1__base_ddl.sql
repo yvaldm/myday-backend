@@ -11,12 +11,11 @@ create table public.action (
 create table public.performed_action (
 
   id bigserial primary key,
-  action_id integer references public.action,
-  user_id integer,
+  action_id bigint references public.action,
+  user_id text,
   cts TIMESTAMP NOT NULL DEFAULT NOW()
 
 );
-
 
 insert into public.action(name, rating) values ('Smoke', -20);
 insert into public.action(name, rating) values ('Run', 10);

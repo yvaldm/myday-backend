@@ -39,7 +39,7 @@ import java.util.List;
 @SuppressWarnings({"all", "unchecked", "rawtypes"})
 public class PerformedAction extends TableImpl<PerformedActionRecord> {
 
-    private static final long serialVersionUID = -574331023;
+    private static final long serialVersionUID = -779163309;
 
     /**
      * The reference instance of <code>public.performed_action</code>
@@ -62,12 +62,12 @@ public class PerformedAction extends TableImpl<PerformedActionRecord> {
     /**
      * The column <code>public.performed_action.action_id</code>.
      */
-    public final TableField<PerformedActionRecord, Integer> ACTION_ID = createField("action_id", org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<PerformedActionRecord, Long> ACTION_ID = createField("action_id", org.jooq.impl.SQLDataType.BIGINT, this, "");
 
     /**
      * The column <code>public.performed_action.user_id</code>.
      */
-    public final TableField<PerformedActionRecord, Integer> USER_ID = createField("user_id", org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<PerformedActionRecord, String> USER_ID = createField("user_id", org.jooq.impl.SQLDataType.CLOB, this, "");
 
     /**
      * The column <code>public.performed_action.cts</code>.

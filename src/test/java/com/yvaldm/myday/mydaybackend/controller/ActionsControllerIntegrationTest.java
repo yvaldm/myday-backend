@@ -25,9 +25,8 @@ public class ActionsControllerIntegrationTest {
     @Autowired
     private MockMvc mvc;
 
-
     @Test
-    public void shouldCreateRegistrationApplication() throws Exception {
+    public void shouldRetrieveAction() throws Exception {
 
         // act
         mvc.perform(get("/actions")

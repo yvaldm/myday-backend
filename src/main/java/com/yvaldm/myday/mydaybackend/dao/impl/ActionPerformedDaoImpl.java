@@ -3,6 +3,7 @@ package com.yvaldm.myday.mydaybackend.dao.impl;
 import com.yvaldm.myday.mydaybackend.dao.ActionPerformedDao;
 import com.yvaldm.myday.mydaybackend.entity.ActionPerformed;
 import org.jooq.DSLContext;
+import org.jooq.DatePart;
 import org.jooq.impl.DSL;
 
 import java.sql.Timestamp;
@@ -28,7 +29,7 @@ public class ActionPerformedDaoImpl implements ActionPerformedDao {
     }
 
     @Override
-    public List<ActionPerformed> findUserActionsOfToday(String userId) {
+    public List<ActionPerformed> findTrackedActionsOfToday(String userId) {
 
         return dslContext.selectFrom(PERFORMED_ACTION)
             .where(PERFORMED_ACTION.USER_ID.eq(userId))
@@ -37,10 +38,19 @@ public class ActionPerformedDaoImpl implements ActionPerformedDao {
     }
 
     @Override
-    public List<ActionPerformed> findUserActions(String userId) {
+    public List<ActionPerformed> findTrackedActions(String userId) {
 
         return dslContext.selectFrom(PERFORMED_ACTION)
             .where(PERFORMED_ACTION.USER_ID.eq(userId))
+            .fetchInto(ActionPerformed.class);
+    }
+
+    @Override
+    public List<ActionPerformed> findTrackedActionsByMonth(String userId, int year, int month) {
+
+        return dslContext.selectFrom(PERFORMED_ACTION)
+            .where(DSL.extract(PERFORMED_ACTION.CTS, DatePart.MONTH).eq(month))
+            .and(DSL.extract(PERFORMED_ACTION.CTS, DatePart.YEAR).eq(year))
             .fetchInto(ActionPerformed.class);
     }
 }

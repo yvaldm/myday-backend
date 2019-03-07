@@ -20,7 +20,7 @@ public interface ActionPerformedDao {
      * @param userId user identifier
      * @return list of actions performed today
      */
-    List<ActionPerformed> findUserActionsOfToday(String userId);
+    List<ActionPerformed> findTrackedActionsOfToday(String userId);
 
     /**
      * Load all user tracked actions
@@ -28,5 +28,15 @@ public interface ActionPerformedDao {
      * @param userId user identifier
      * @return list of tracked user actions
      */
-    List<ActionPerformed> findUserActions(String userId);
+    List<ActionPerformed> findTrackedActions(String userId);
+
+    /**
+     * Load tracked actions of specific user on given month of the year
+     *
+     * @param userId user identification
+     * @param year
+     * @param month
+     * @return list of actions performed by given user
+     */
+    List<ActionPerformed> findTrackedActionsByMonth(String userId, int year, int month);
 }

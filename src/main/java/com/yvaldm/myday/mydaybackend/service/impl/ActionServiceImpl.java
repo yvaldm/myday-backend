@@ -7,6 +7,11 @@ import com.yvaldm.myday.mydaybackend.entity.ActionPerformed;
 import com.yvaldm.myday.mydaybackend.service.ActionService;
 
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.toMap;
 
 /**
  * Implementation for action service
@@ -35,6 +40,27 @@ public class ActionServiceImpl implements ActionService {
 
     @Override
     public List<ActionPerformed> findTrackedActions(String userId) {
-        return actionPerformedDao.findUserActions(userId);
+        return actionPerformedDao.findTrackedActions(userId);
+    }
+
+    @Override
+    public List<ActionPerformed> findTrackedActionsOfToday(String userId) {
+        return actionPerformedDao.findTrackedActionsOfToday(userId);
+    }
+
+    @Override
+    public Map<Integer, Integer> loadSummaryByMonth(String userId, int year, int month) {
+
+        Map<Long, Action> idToActionMap = actionDao.findActions().stream().collect(toMap(Action::getId, Function.identity()));
+        List<ActionPerformed> trackedActions = actionPerformedDao.findTrackedActionsByMonth(userId, year, month);
+        Map<Integer, List<ActionPerformed>> actionsGroupedByDay = trackedActions.stream().collect(groupingBy(ap -> ap.getCts().getDayOfMonth()));
+
+        return actionsGroupedByDay
+            .entrySet()
+            .stream()
+            .collect(toMap(Map.Entry::getKey,
+                           key -> actionsGroupedByDay.get(key.getKey())
+                               .stream()
+                               .mapToInt(ap -> idToActionMap.get(ap.getActionId()).getRating()).sum()));
     }
 }

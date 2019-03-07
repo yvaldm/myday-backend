@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Controller tracking actions of a specific users
@@ -32,5 +33,15 @@ public class ActionsTrackingController {
     @GetMapping("/user/{userId}/actions")
     public List<ActionPerformedResponse> loadTrackedActions(@PathVariable String userId) {
         return Transformer.performedActionsToResponse(actionService.findTrackedActions(userId));
+    }
+
+    @GetMapping("/user/{userId}/actions/today")
+    public List<ActionPerformedResponse> loadTrackedActionsOfToday(@PathVariable String userId) {
+        return Transformer.performedActionsToResponse(actionService.findTrackedActionsOfToday(userId));
+    }
+
+    @GetMapping("/user/{userId}/actions/year/{year}/month/{month}")
+    public Map<Integer, Integer> loadSummary(@PathVariable String userId, @PathVariable int year, @PathVariable int month) {
+        return actionService.loadSummaryByMonth(userId, year, month);
     }
 }
